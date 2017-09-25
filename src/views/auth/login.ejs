@@ -1,0 +1,18 @@
+<%- include ../partials/header.ejs %>
+
+  <h1>Log In</h1>
+
+  <form method="post" action="/login" class="login-form">
+    <pre class="login-form-errors"></pre>
+    <label>
+      <span>User:</span>
+      <input type="text" name="user" />
+    </label>
+    <label>
+      <span>Password:</span>
+      <input type="text" name="password" />
+    </label>
+    <input type="submit" value="Log In">
+  </form>
+
+  <%- include ../partials/footer.ejs %>
