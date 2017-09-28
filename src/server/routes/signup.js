@@ -1,18 +1,21 @@
 const users = require('../../models/users')
 const router = require('express').Router()
+const bcrypt = require('bcrypt')
 
 router.route('/')
   .get((request, response) => {
     response.render('auth/signup')
   })
   .post((request, response, next) => {
-    console.log("request.body (╯°□°）╯︵ ┻━┻", request.body)
-    users.create(request.body)
-    .then(user => {
-      request.session.user = user
-      response.redirect('/')
+    bcrypt.hash(request.body.password, 10, function(err, hash) {
+      request.body.password = hash
+      users.create(request.body)
+      .then(user => {
+        request.session.user = user
+        response.redirect('/')
+      })
+      .catch(error => next(error))
     })
-    .catch(error => next(error))
   })
 
 module.exports = router
