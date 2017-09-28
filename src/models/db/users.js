@@ -3,7 +3,7 @@ const db = require('./db')
 const create = function(user){
   return db.query(`
     INSERT INTO
-      users (name, password)
+      users (username, password)
     VALUES
       ($1::text, $2::text)
     RETURNING
