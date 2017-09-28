@@ -2,8 +2,8 @@ const users = require('../../models/users')
 const router = require('express').Router()
 
 router.route('/')
-  .get((request, response, next) => {
-    response.render('auth/login')
+  .get((request, response) => {
+    response.render('auth/login', {warning: ''})
   })
   .post((request, response) => {
     const { username, password } = request.body
