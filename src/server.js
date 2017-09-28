@@ -6,6 +6,9 @@ const routes = require('./server/routes');
 const middlewares = require('./server/middlewares');
 const session = require('express-session')
 const bcrypt = require('bcrypt')
+const morgan = require('morgan')
+
+app.use(morgan('dev'))
 
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views')

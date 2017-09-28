@@ -24,6 +24,7 @@
     "pg-promise": "^6.2.1"
   },
   "devDependencies": {
+    "morgan": "^1.9.0",
     "nodemon": "^1.11.0"
   }
 }
