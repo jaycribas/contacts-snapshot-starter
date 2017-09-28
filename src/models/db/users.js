@@ -9,7 +9,7 @@ const create = function(user){
     RETURNING
       *
     `,
-    [user.name, user.password]
+    [user.username, user.password]
   )
   .catch(error => {
     console.error({ message: 'An error occurred while executing users.create',
@@ -17,3 +17,23 @@ const create = function(user){
     throw error
   })
 }
+
+const find = function(user){
+  return db.query(`
+    SELECT
+      *
+    FROM
+      users
+    WHERE
+      username = ($1::text)
+    `,
+    [user]
+  )
+  .catch(error => {
+    console.error({ message: 'An error occurred while executing users.find',
+                    arguments: arguments })
+    throw error
+  })
+}
+
+module.exports = { create, find }
