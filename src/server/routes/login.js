@@ -1,5 +1,6 @@
 const users = require('../../models/users')
 const router = require('express').Router()
+const middlewares = require('../middlewares')
 
 router.route('/')
   .get((request, response) => {
@@ -11,6 +12,7 @@ router.route('/')
     users.find(username)
     .then(user => {
       if(username === user[0].username && password === user[0].password){
+        request.session.user = user
         response.redirect('/')
       } else {
         response.render('auth/login', {warning: 'Invalid username or password'})
