@@ -9,6 +9,6 @@ CREATE TABLE contacts (
 DROP TABLE IF EXISTS users;
 CREATE TABLE users (
   id serial,
-  name varchar(20) NOT NULL,
-  password varchar(50) NOT NULL
+  username varchar(20) UNIQUE NOT NULL,
+  password varchar(120) NOT NULL
 );

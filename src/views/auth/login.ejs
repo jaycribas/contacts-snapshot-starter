@@ -3,14 +3,14 @@
   <h1>Log In</h1>
 
   <form method="post" action="/login" class="login-form">
-    <pre class="login-form-errors"></pre>
+    <pre class="login-form-errors"><%= warning %></pre>
     <label>
       <span>User:</span>
-      <input type="text" name="user" />
+      <input type="text" name="username" />
     </label>
     <label>
       <span>Password:</span>
-      <input type="text" name="password" />
+      <input type="password" name="password" />
     </label>
     <input type="submit" value="Log In">
   </form>

@@ -13,9 +13,13 @@ app.set('views', __dirname + '/views')
 app.use(express.static('public'))
 app.use(bodyParser.urlencoded({ extended: false }))
 
-// app.use(session({
-//   secret: 'shhh secrets'
-// }))
+// initialize express session to track logged-in user across sessions
+app.use(session({
+  key: 'user_sid',
+  secret: 'shhh secrets',
+  resave: false,
+  saveUninitialized: false
+}))
 
 app.use(methodOverride('_method'))
 
