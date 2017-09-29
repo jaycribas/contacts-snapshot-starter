@@ -1,7 +1,8 @@
-const users = require('../../models/users')
+const db = require('../../models/users')
 const router = require('express').Router()
 const middlewares = require('../middlewares')
 const bcrypt = require('bcrypt');
+const {hashPassword,renderError} = require('../utils')
 
 router.route('/login')
   .get((request, response,) => {
@@ -10,7 +11,7 @@ router.route('/login')
 
   .post((request, response, next) => {
     const { username, password } = request.body
-    users.find(username)
+    db.find(username)
     .then(user => {
       bcrypt.compare(password, user[0].password, function(err, res) {
         if(res) {
@@ -28,16 +29,14 @@ router.route('/signup')
     response.render('users/signup')
   })
   .post((request, response, next) => {
-    bcrypt.hash(request.body.password, 10, function(err, hash) {
-      request.body.password = hash
-      users.create(request.body)
-      .then(user => {
-        request.session.user = user
-        response.redirect('/')
-      })
-      .catch(error => next(error))
+    const { username, password } = request.body
+    hashPassword(password)
+    .then(hash => db.create({username: username, password: hash}))
+    .then(user => {
+      request.session.user = user
+      response.redirect('/')
     })
+    .catch(error => next(error))
   })
-
 
 module.exports = router
