@@ -4,8 +4,6 @@ const app = express()
 const methodOverride = require('method-override')
 const routes = require('./server/routes');
 const middlewares = require('./server/middlewares');
-const session = require('express-session')
-const bcrypt = require('bcrypt')
 const morgan = require('morgan')
 
 app.use(morgan('dev'))
@@ -15,15 +13,6 @@ app.set('views', __dirname + '/views')
 
 app.use(express.static('public'))
 app.use(bodyParser.urlencoded({ extended: false }))
-
-// initialize express session to track logged-in user across sessions
-app.use(session({
-  key: 'user_sid',
-  secret: 'shhh secrets',
-  resave: false,
-  saveUninitialized: false
-}))
-
 app.use(methodOverride('_method'))
 
 app.use(middlewares.setDefaultResponseLocals)

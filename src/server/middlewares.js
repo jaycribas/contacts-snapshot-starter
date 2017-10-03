@@ -13,6 +13,7 @@ const notFoundHandler = (request, response) => {
 
 const setDefaultResponseLocals = (request, response, next) => {
   response.locals.query = ''
+  response.locals.warning = ''
   next()
 }
 

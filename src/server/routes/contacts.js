@@ -3,7 +3,7 @@ const contacts = require('../../models/contacts')
 const router = require('express').Router()
 
 router.get('/new', (request, response) => {
-  response.render('contacts/new')
+  response.render('contacts/new',{title: 'New'})
 })
 
 router.post('/', (request, response, next) => {
@@ -20,7 +20,7 @@ router.get('/:contactId', (request, response, next) => {
   if (!contactId || !/^\d+$/.test(contactId)) return next()
   contacts.findById(contactId)
     .then(function(contact) {
-      if (contact) return response.render('contacts/show', { contact })
+      if (contact) return response.render('contacts/show', { title: 'Detail', contact })
       next()
     })
     .catch( error => next(error) )
@@ -41,7 +41,7 @@ router.get('/search', (request, response, next) => {
   const query = request.query.q
   contacts.search(query)
     .then(function(contacts) {
-      if (contacts) return response.render('contacts/index', { query, contacts })
+      if (contacts) return response.render('contacts/index', { title: 'Search', query, contacts })
       next()
     })
     .catch( error => next(error) )
