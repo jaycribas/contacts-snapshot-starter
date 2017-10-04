@@ -23,6 +23,15 @@ router.route('/login')
     }).catch(error => next(error))
   })
 
+router.get('/logout', (request, response) => {
+  if(request.session){
+    request.session.destroy(function(err){
+      if(err) next(err)
+      return response.redirect('/')
+    })
+  }
+})
+
 router.route('/signup')
   .get((request, response) => {
     response.render('users/signup', {title: 'Sign Up'})
