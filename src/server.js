@@ -1,9 +1,11 @@
 const express = require('express')
-const bodyParser = require('body-parser')
 const app = express()
+require('dotenv').config()
+const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
 const routes = require('./server/routes');
 const middlewares = require('./server/middlewares');
+
 
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views')
