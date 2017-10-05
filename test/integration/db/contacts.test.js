@@ -45,4 +45,14 @@ describe('contacts.js', () => {
     })
   })
 
+  describe('search', () => {
+    it('should return the contact Jared', () => {
+      return contacts.search('jar')
+      .then(searchResults => {
+        expect(searchResults).to.be.an('array').to.have.a.lengthOf(1)
+        expect(searchResults[0].first_name).to.equal('Jared')
+      })
+    })
+  })
+
 })
