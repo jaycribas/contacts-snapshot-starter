@@ -11,9 +11,28 @@ describe('contacts.js', () => {
     it('should create a new contact', () => {
       let contact = { first_name: 'foo', last_name: 'bar' }
       return contacts.create(contact)
-      .then(result => {
-        expect(result[0]).to.be.an('object').that.has.all.keys(['id', 'first_name', 'last_name'])
-        expect(result[0].first_name).to.equal('foo')
+      .then(newContact => {
+        expect(newContact[0]).to.be.an('object').that.has.all.keys(['id', 'first_name', 'last_name'])
+        expect(newContact[0].first_name).to.equal('foo')
+      })
+    })
+  })
+
+  describe('findAll', () => {
+    it('should return all contacts', () => {
+      return contacts.findAll()
+      .then(allContacts => {
+        expect(allContacts).to.be.an('array').to.have.a.lengthOf(3)
+      })
+    })
+  })
+
+  describe('findById', () => {
+    it('should return a single contacts with matching id', () => {
+      return contacts.findById(1)
+      .then(contact => {
+        expect(contact).to.be.an('object')
+        expect(contact.first_name).to.equal('Jared')
       })
     })
   })
