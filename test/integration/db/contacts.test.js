@@ -1,18 +1,21 @@
 const expect = require('chai').expect
 const dbHelper = require('../../helpers/db')
+const contacts = require('../../../src/models/contacts.js')
 
-describe('demo', () => {
+describe('contacts.js', () => {
   beforeEach('reset the DB', () => {
     return dbHelper.initDB()
   })
 
-  it('should do a thing', () => {
-    expect(true).to.equal(false)
+  describe('create', () => {
+    it('should create a new contact', () => {
+      let contact = { first_name: 'foo', last_name: 'bar' }
+      return contacts.create(contact)
+      .then(result => {
+        expect(result[0]).to.be.an('object').that.has.all.keys(['id', 'first_name', 'last_name'])
+        expect(result[0].first_name).to.equal('foo')
+      })
+    })
   })
-  it('should do a thing', () => {
-    expect(true).to.equal(false)
-  })
-  it('should do a thing', () => {
-    expect(true).to.equal(false)
-  })
+
 })
