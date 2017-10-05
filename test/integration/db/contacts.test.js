@@ -13,8 +13,7 @@ describe('contacts.js', () => {
       return contacts.create(contact)
       .then(newContact => {
         expect(newContact[0]).to.be.an('object').that.has.all.keys(['id', 'first_name', 'last_name'])
-        expect(newContact[0].first_name).to.equal('foo')
-      })
+        expect(newContact[0].first_name).to.equal('foo')})
     })
   })
 
@@ -22,8 +21,7 @@ describe('contacts.js', () => {
     it('should return all contacts', () => {
       return contacts.findAll()
       .then(allContacts => {
-        expect(allContacts).to.be.an('array').to.have.a.lengthOf(3)
-      })
+        expect(allContacts).to.be.an('array').to.have.a.lengthOf(3)})
     })
   })
 
@@ -32,7 +30,17 @@ describe('contacts.js', () => {
       return contacts.findById(1)
       .then(contact => {
         expect(contact).to.be.an('object')
-        expect(contact.first_name).to.equal('Jared')
+        expect(contact.first_name).to.equal('Jared')})
+    })
+  })
+
+  describe('destroy', () => {
+    it('should return all contacts', () => {
+      return contacts.destroy(1)
+      .then(() => {
+        return contacts.findAll()
+        .then(allContacts => {
+          expect(allContacts).to.be.an('array').to.have.a.lengthOf(2)})
       })
     })
   })
