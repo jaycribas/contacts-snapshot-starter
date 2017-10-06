@@ -2,7 +2,7 @@ const expect = require('chai').expect
 const dbHelper = require('../../helpers/db')
 const contacts = require('../../../src/models/contacts.js')
 
-describe('contacts.js', () => {
+describe('db functions contacts.js', () => {
   beforeEach('reset the DB', () => {
     return dbHelper.initDB()
   })
