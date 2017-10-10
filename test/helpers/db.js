@@ -8,7 +8,9 @@ function sql(file){
   return new QueryFile(fullPath)
 }
 
-const seedFiles = {contacts: sql('../seed/contacts.sql')}
+const seedFiles = {
+  contacts: sql('../seed/contacts.sql')
+}
 
 const truncateTables = () => {
   const tables = ['contacts']

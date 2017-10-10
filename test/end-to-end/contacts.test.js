@@ -10,36 +10,75 @@ describe('http routes', () => {
 
   describe("'/' GET route", () => {
 
-    it('responds with a status 200', (done) => {
+    it('should respond with a status 200', () => {
       chai.request(app)
           .get('/')
-          .end((err,res) => {
-            if(err) console.log("err (╯°□°）╯︵ ┻━┻", err)
+          .then(res => {
             expect(res).to.have.status(200)
-            done()
+          })
+          .catch(error => {
+            throw error
           })
     })
 
-    it('should contain "Jared","Tanner", "NeEddra"', (done) => {
+    it('should contain "Jared","Tanner", "NeEddra"', () => {
       chai.request(app)
           .get('/')
-          .end((err,res) => {
-            if(err) console.log("err (╯°□°）╯︵ ┻━┻", err)
+          .then(res => {
             expect(res.text).to.contain('Jared','Tanner', 'NeEddra')
-            done()
+          })
+          .catch(error => {
+            throw error
+          })
+    })
+  })
+
+  describe("'/contacts/new' GET route", () => {
+
+    it('should respond with a status 200', () => {
+      chai.request(app)
+          .get('/contacts/new')
+          .then(res => {
+            expect(res).to.have.status(200)
+          })
+          .catch(error => {
+            throw error
+          })
+    })
+
+    it('should have response headers for content-type set to text/html', () => {
+      chai.request(app)
+          .get('/contacts/new')
+          .then(res => {
+            expect(res).to.have.header('content-type', 'text/html; charset=utf-8')
+          })
+          .catch(error => {
+            throw error
+          })
+    })
+
+    it('should respond with html', () => {
+      chai.request(app)
+          .get('/contacts/new')
+          .then(res => {
+            expect(res).to.be.html
+          })
+          .catch(error => {
+            throw error
           })
     })
   })
 
   describe("'/blah' - undefined GET route", () => {
-    it('should return a status 404', (done) => {
+    it('should return a status 404', () => {
       chai.request(app)
           .get('/blah')
-          .end(res => {
+          .then(res => {
             expect(res).to.have.status(404)
-            done()
+          })
+          .catch(error => {
+            throw error
           })
     })
-
   })
 })
