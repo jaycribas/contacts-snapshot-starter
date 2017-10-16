@@ -25,7 +25,7 @@ describe('http routes', () => {
       return chai.request(app)
           .get('/')
           .then(res => {
-            expect(res.text).to.contain('Jared','Tanner', 'NeEddra')
+            expect(res.text).to.contain('Jared', 'Tanner', 'NeEddra')
           })
           .catch(error => {
             throw error
@@ -70,6 +70,40 @@ describe('http routes', () => {
             expect(res).to.have.status(200)
             expect(res.text).to.contain('foo')
           })
+    })
+  })
+
+  describe("'/contacts/:contactId' GET route", () => {
+    it('should retrieve the correct contact', () => {
+      return chai.request(app)
+        .get('/contacts/1')
+        .then(res => {
+          expect(res.text).to.contain('Jared','Grippe')
+          expect(res.text).to.not.contain('Tanner', 'NeEddra')
+        })
+    })
+  })
+
+  describe("'/contacts/:contactId' DELETE route", () => {
+    it('should delete the contact with matching id', () => {
+      return chai.request(app)
+        .delete('/contacts/1')
+        .then(res => {
+          expect(res.text).to.contain('Tanner', 'NeEddra')
+          expect(res.text).to.not.contain('Jared')
+        })
+    })
+  })
+
+  describe("'/search' GET route", () => {
+    it('should return the correct contact search result', () => {
+      return chai.request(app)
+        .get('/contacts/search')
+        .query({q: 'jared'})
+        .then(res => {
+          expect(res.text).to.contain('Jared', 'Grippe')
+          expect(res.text).to.not.contain('Tanner', 'NeEddra')
+        })
     })
   })
 
