@@ -8,11 +8,16 @@ function sql(file){
   return new QueryFile(fullPath)
 }
 
-const seedFiles = {contacts: sql('../seed/contacts.sql')}
+const seedFiles = {
+  contacts: sql('../seed/contacts.sql')
+}
 
 const truncateTables = () => {
   const tables = ['contacts']
-  return Promise.all(tables.map(table => db.none(`TRUNCATE ${table} RESTART IDENTITY`)))
+  return Promise.all(tables.map(table => {
+      return db.none(`TRUNCATE ${table} RESTART IDENTITY`)
+    })
+  )
 }
 
 const seedTables = () => db.none(seedFiles.contacts)
