@@ -11,7 +11,7 @@ describe('http routes', () => {
   describe("'/' GET route", () => {
 
     it('should respond with a status 200', () => {
-      chai.request(app)
+      return chai.request(app)
           .get('/')
           .then(res => {
             expect(res).to.have.status(200)
@@ -22,7 +22,7 @@ describe('http routes', () => {
     })
 
     it('should contain "Jared","Tanner", "NeEddra"', () => {
-      chai.request(app)
+      return chai.request(app)
           .get('/')
           .then(res => {
             expect(res.text).to.contain('Jared','Tanner', 'NeEddra')
@@ -36,48 +36,49 @@ describe('http routes', () => {
   describe("'/contacts/new' GET route", () => {
 
     it('should respond with a status 200', () => {
-      chai.request(app)
+      return chai.request(app)
           .get('/contacts/new')
           .then(res => {
             expect(res).to.have.status(200)
           })
-          .catch(error => {
-            throw error
-          })
     })
 
     it('should have response headers for content-type set to text/html', () => {
-      chai.request(app)
+      return chai.request(app)
           .get('/contacts/new')
           .then(res => {
             expect(res).to.have.header('content-type', 'text/html; charset=utf-8')
           })
-          .catch(error => {
-            throw error
-          })
     })
 
     it('should respond with html', () => {
-      chai.request(app)
+      return chai.request(app)
           .get('/contacts/new')
           .then(res => {
             expect(res).to.be.html
           })
-          .catch(error => {
-            throw error
+    })
+  })
+
+  describe("'/contacts' POST route", () => {
+    it('should respond with a status 200', () => {
+      return chai.request(app)
+          .post('/contacts')
+          .set('content-type', 'application/x-www-form-urlencoded')
+          .send({first_name: 'foo', last_name: 'bar'})
+          .then(res => {
+            expect(res).to.have.status(200)
+            expect(res.text).to.contain('foo')
           })
     })
   })
 
   describe("'/blah' - undefined GET route", () => {
     it('should return a status 404', () => {
-      chai.request(app)
+      return chai.request(app)
           .get('/blah')
-          .then(res => {
+          .catch(res => {
             expect(res).to.have.status(404)
-          })
-          .catch(error => {
-            throw error
           })
     })
   })
