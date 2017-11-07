@@ -13,7 +13,6 @@ router.use(session({
 }))
 
 router.get('/', middlewares.sessionChecker, (request, response, next) => {
-  console.log("request.user (╯°□°）╯︵ ┻━┻", request.user)
   contacts.findAll()
     .then((contacts) => response.render('contacts/index', {title: 'Welcome', contacts }))
     .catch( error => next(error) )
